@@ -5,13 +5,14 @@ uint16_t sensorValues[6];
 //MOTOR PART
 int motor_speed_right;
 int motor_speed_left;
-int motor_outpin_right;
-int motor_outpin_left;
-int control_right1;
-int control_right2
-int control_left1;
-int control_left2;
-int standby;
+int motor_outpin_right=5;
+int motor_outpin_left=6;
+int control_right1=3;
+int control_right2=4;
+int control_left1=7;
+int control_left2=8;
+int standby=8;
+int base_speed=155;
 int motor_pid_speed;
 //Equation PART
 int p,i,d;
@@ -27,15 +28,26 @@ void setup(){
   qtr.setSensorPins((const uint8_t[]){A0,A1,A2,A3,A4,A5}, 6);
   qtr.setEmitterPin(2);
 
+  //analogWriteResolution()
+
   Serial.begin(9600);
+  pinMode(control_right1,OUTPUT);
+  pinMode(control_right2,OUTPUT);
+  pinMode(control_left1,OUTPUT);
+  pinMode(control_left2,OUTPUT);
+  pinMode(standby,OUTPUT);  
   pinMode(motor_outpin_right,OUTPUT);
   pinMode(motor_outpin_left,OUTPUT);
   calibrate();
 }
 
 void loop(){
-  fetch_sensors();
-  check_output();
+//  fetch_sensors();
+//  check_output();
+move();
+delay(2000);
+stall();
+delay(2000);
 } 
 
 void fetch_sensors(){
@@ -77,6 +89,8 @@ void move(){
   digitalWrite(control_left2,LOW);
   digitalWrite(control_right1,HIGH);
   digitalWrite(control_right2,LOW);
+  analogWrite(motor_outpin_right,motor_speed_right);
+  analogWrite(motor_outpin_right,motor_speed_left);
 }
 void stall(){
   digitalWrite(standby,LOW);
@@ -86,4 +100,6 @@ void refresh_PID(){
   iterm += error;
   dterm = error - last_error;
   motor_pid_speed = (p*pterm)+(i*iterm)+(d*dterm);
+  //FOR TESTING
+  motor_pid_speed = 0;
 }
