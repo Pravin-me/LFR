@@ -42,12 +42,12 @@ void setup(){
 }
 
 void loop(){
-//  fetch_sensors();
-//  check_output();
-move();
-delay(2000);
-stall();
-delay(2000);
+  fetch_sensors();
+  check_output();
+// move();
+// delay(2000);
+// stall();
+// delay(2000);
 } 
 
 void fetch_sensors(){
