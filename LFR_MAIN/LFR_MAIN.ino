@@ -42,12 +42,12 @@ void setup(){
 }
 
 void loop(){
-  fetch_sensors();
-  check_output();
-// move();
-// delay(2000);
-// stall();
-// delay(2000);
+  // fetch_sensors();
+  // check_output();
+move();
+delay(2000);
+stall();
+delay(2000);
 } 
 
 void fetch_sensors(){
@@ -86,10 +86,10 @@ void motordriving(){
 void move(){
   motordriving();
   digitalWrite(standby,HIGH);
-  digitalWrite(control_left1,HIGH);
-  digitalWrite(control_left2,LOW);
-  digitalWrite(control_right1,HIGH);
-  digitalWrite(control_right2,LOW);
+  digitalWrite(control_left1,LOW);
+  digitalWrite(control_left2,HIGH);
+  digitalWrite(control_right1,LOW);
+  digitalWrite(control_right2,HIGH);
   analogWrite(motor_outpin_right,motor_speed_right);
   analogWrite(motor_outpin_left,motor_speed_left);
 }
